@@ -19,7 +19,7 @@
 
 ## [커밋 링크]
 ### 1. 요구사항 분석 
-[commit Requirements.md](https://github.com/bin081/hanghae/commit/0c5d398)
+[commit Requirements.md](https://github.com/bin081/hanghae/commit/0c5d3986ec8f8aa9a20aeafc98b630ecb49ef3a2)
 
 ### 2. 시퀀스 다이어그램
 #### 2-1. 유저 토큰 발급 API
@@ -33,34 +33,26 @@
 #### 2-5. 결제 API
 ![결제](./images/결제_uml.PNG)
 
-### 3. ERD 설계 :
-### 4. API Spec :
-### 5. 마일스톤 :
-### 6. Mock API :
+### 3. ERD 설계 
+![ERD](./images/erd.drawio.png)
+
+### 4. API Spec 
+
+### 5. 마일스톤 
+[commit milestone.md](https://github.com/bin081/hanghae/commit/0b28ded1f9cea35c7a20f7d91687691e1793e51a)
+
+### 6. Mock API 
+[mock api commit](https://github.com/bin081/hanghae/commit/67d85e1)
 
 
 
-### **리뷰포인트**
-- 리뷰 포인트 1
-- 리뷰 포인트 2
-<!-- - 리뷰어가 특히 확인해야 할 부분이나 신경 써야 할 코드가 있다면 명확히 작성해주세요.(최대 2개)
-  
-  좋은 예:
-  - `ErrorMessage` 컴포넌트의 상태 업데이트 로직이 적절한지 검토 부탁드립니다.
-  - 추가한 유닛 테스트(`LoginError.test.js`)의 테스트 케이스가 충분한지 확인 부탁드립니다.
 
-  나쁜 예:
-  - 개선사항을 알려주세요.
-  - 코드 전반적으로 봐주세요.
-  - 뭘 질문할지 모르겠어요. -->
----
+## **리뷰포인트**
+
 ### **이번주 KPT 회고**
-
 ### Keep
 <!-- 유지해야 할 좋은 점 -->
-
 ### Problem
 <!--개선이 필요한 점-->
-
 ### Try
 <!-- 새롭게 시도할 점 -->
