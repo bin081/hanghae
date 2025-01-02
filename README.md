@@ -38,11 +38,18 @@
 
 ### 4. API Spec 
 
+![image](https://github.com/user-attachments/assets/34e1cc2c-2797-4384-a22f-42ae460f92e6)
+![image](https://github.com/user-attachments/assets/9ccd94ef-b8be-4b79-9900-09be55d0c275)
+![image](https://github.com/user-attachments/assets/7f740272-a025-4f0f-af73-8a5d0aa0258f)
+![image](https://github.com/user-attachments/assets/11e07e16-10bd-4efd-a727-9a5d67071192)
+![image](https://github.com/user-attachments/assets/e3cc1691-be3e-4f10-b2c6-a0d4bed0796b)
+
 ### 5. 마일스톤 
 [commit milestone.md](https://github.com/bin081/hanghae/commit/0b28ded1f9cea35c7a20f7d91687691e1793e51a)
 
 ### 6. Mock API 
 [mock api commit](https://github.com/bin081/hanghae/commit/67d85e1)
+
 
 
 
