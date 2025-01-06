@@ -3,6 +3,7 @@ package io.hhplus.concertreservation.api.service;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.locks.ReentrantLock;
 
 @Service
@@ -24,5 +25,18 @@ public class QueueService {
         }finally {
             lock.unlock();
         }
+    }
+
+    private final ConcurrentMap<String, Integer> userQueue = new ConcurrentHashMap<>();
+
+    // 유저가 대기열에 있는지, 그리고 대기열 검증
+    public boolean isUserEligible(String userToken) {
+        Integer queuePosition = userQueue.get(userToken);
+        return queuePosition != null && queuePosition <= 10; // 예시: 대기열에서 앞 10명만 예약 가능
+    }
+
+    // 대기열에 유저 추가
+    public void addUserToQueue(String userToken) {
+        userQueue.put(userToken, userQueue.size() + 1);
     }
 }
