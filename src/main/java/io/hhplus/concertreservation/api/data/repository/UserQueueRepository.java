@@ -1,6 +1,6 @@
-package io.hhplus.concertreservation.api.data.repository2;
+package io.hhplus.concertreservation.api.data.repository;
 
-import io.hhplus.concertreservation.api.data.entity2.UserQueue;
+import io.hhplus.concertreservation.api.data.entity.UserQueue;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 

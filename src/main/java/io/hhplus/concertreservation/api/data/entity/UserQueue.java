@@ -1,4 +1,4 @@
-package io.hhplus.concertreservation.api.data.entity2;
+package io.hhplus.concertreservation.api.data.entity;
 
 import lombok.Getter;
 import lombok.Setter;

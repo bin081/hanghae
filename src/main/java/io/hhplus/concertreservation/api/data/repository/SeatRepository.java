@@ -1,4 +1,12 @@
 package io.hhplus.concertreservation.api.data.repository;
 
-public class SeatRepository {
+
+import io.hhplus.concertreservation.api.data.entity.Seat;
+import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+
+public interface SeatRepository extends JpaRepository<Seat, Long> {
+
+    List<Seat> findByConcertScheduleIdAndStatus(String concertScheduleId, String status);
+
 }

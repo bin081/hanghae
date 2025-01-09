@@ -1,19 +1,25 @@
 package io.hhplus.concertreservation.api.data.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import javax.persistence.*;
 
-import javax.persistence.Entity;
-import java.time.LocalDateTime;
-
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
+@Getter
+@Setter
+@Table(name = "user")
 public class User {
 
-    private int user_id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "name", nullable = false, length = 100)
     private String name;
 
+    @Column(name = "balance", nullable = false, length = 100)
+    private int balance;
+
+    // Getters and Setters
 }

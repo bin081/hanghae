@@ -1,20 +1,19 @@
 package io.hhplus.concertreservation.api.presentation.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
 public class SeatResponse {
+    private Long seatNum;
+    private Double price;
+    private String status;
 
-    private int seatNumber;
-
-    public SeatResponse(int seatNumber) {
-        this.seatNumber = seatNumber;
+    public SeatResponse(Long seatNumber, Double price, String status) {
     }
 
-    public int getSeatNumber() {
-        return seatNumber;
+    public Long getSeatNum() {
+        return seatNum;
     }
 }
