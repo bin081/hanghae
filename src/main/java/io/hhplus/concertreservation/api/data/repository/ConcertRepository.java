@@ -1,6 +1,6 @@
-package io.hhplus.concertreservation.api.data.repository2;
+package io.hhplus.concertreservation.api.data.repository;
 
-import io.hhplus.concertreservation.api.data.entity2.Concert;
+import io.hhplus.concertreservation.api.data.entity.Concert;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.time.LocalDateTime;
 import java.util.List;

@@ -1,33 +1,13 @@
 package io.hhplus.concertreservation.api.presentation.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class SeatRequest {
-
-
-    private String userToken;
-    private String date;
-    private int seatNumber;
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public int getSeatNumber() {
-        return seatNumber;
-    }
-
-    public void setSeatNumber(int seatNumber) {
-        this.seatNumber = seatNumber;
-    }
-
-    public String getUserToken() {
-        return userToken;
-    }
-
-    public void setUserToken(String userToken) {
-        this.userToken = userToken;
-    }
+    private Long userId;
+    private Long concertId;
+    private Long seatId;
+    private Double amount;
 }

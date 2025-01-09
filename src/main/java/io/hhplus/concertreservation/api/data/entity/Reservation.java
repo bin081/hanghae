@@ -1,60 +1,43 @@
 package io.hhplus.concertreservation.api.data.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
+import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
-@Data
-@AllArgsConstructor
 @Entity
+@Getter
+@Setter
+@Table(name = "reservation")
 public class Reservation {
 
     @Id
-    private String date; // 예약 날짜 (Primary Key)
-    private int seatNumber; // 좌석 번호
-    private boolean isReserved; // 예약 여부
-    private Date reservedUntil; // 예약 시간
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
 
-    public Reservation() {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "concert_seat_id", nullable = false)
+    private Seat seat;
+
+    @Column(name = "price", nullable = false)
+    private Double price;
+
+    @Column(name = "create_date", nullable = false)
+    private LocalDateTime createDate;
+
+    @Column(name = "update_date", nullable = false)
+    private LocalDateTime updateDate;
+
+    @Column(name = "expired_date", nullable = false)
+    private LocalDateTime expiredDate;
+
+    @Column(name = "status", length = 100)
+    private String status;
 
     // Getters and Setters
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public int getSeatNumber() {
-        return seatNumber;
-    }
-
-    public void setSeatNumber(int seatNumber) {
-        this.seatNumber = seatNumber;
-    }
-
-    public boolean isReserved() {
-        return isReserved;
-    }
-
-    public void setReserved(boolean reserved) {
-        isReserved = reserved;
-    }
-
-    public Date getReservedUntil() {
-        return reservedUntil;
-    }
-
-    public void setReservedUntil(Date reservedUntil) {
-        this.reservedUntil = reservedUntil;
-    }
-
 }
