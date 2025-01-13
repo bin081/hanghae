@@ -22,6 +22,10 @@ public class Payment {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name ="reservation_id", nullable = false)
+    private Reservation reservation;
+
     @Column(name = "amount", nullable = false)
     private Double amount;
 

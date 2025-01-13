@@ -1,5 +1,6 @@
 package io.hhplus.concertreservation.api.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
@@ -19,9 +20,11 @@ public class UserQueue {
     @Column(name = "token", nullable = false, length = 1000)
     private String token;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "entered_at", nullable = false)
     private LocalDateTime enteredAt;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "expired_at", nullable = false)
     private LocalDateTime expiredAt;
 

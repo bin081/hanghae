@@ -17,4 +17,8 @@ public class BalanceResponse {
         this.balance = balance;
         this.currency = currency;
     }
+
+    public BalanceResponse() {
+
+    }
 }

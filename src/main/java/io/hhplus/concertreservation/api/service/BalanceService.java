@@ -32,7 +32,7 @@ public class BalanceService {
         userBalances.merge(userId, amount, Double::sum);
     }
 
-    public double getBalance(UUID userId) {
+    public double getBalance(Long userId) {
         return userBalances.getOrDefault(userId, 0.0);
     }
 

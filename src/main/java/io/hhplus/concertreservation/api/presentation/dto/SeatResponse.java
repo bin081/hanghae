@@ -10,10 +10,14 @@ public class SeatResponse {
     private Double price;
     private String status;
 
-    public SeatResponse(Long seatNumber, Double price, String status) {
-    }
 
     public Long getSeatNum() {
         return seatNum;
+    }
+
+    public SeatResponse(Long seatNum, Double price, String status) {
+        this.seatNum = seatNum;
+        this.price = price;
+        this.status = status;
     }
 }

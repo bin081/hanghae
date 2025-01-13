@@ -25,6 +25,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.0'
+
     // DB
     //runtimeOnly 'com.mysql:mysql-connector-j'
     implementation 'mysql:mysql-connector-java'
@@ -40,7 +43,8 @@ dependencies {
     //testImplementation("org.testcontainers:mysql")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
-    implementation 'io.jsonwebtoken:jjwt:0.9.1' // 최신 버전을 확인하고 사용하세요
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+
 
 }
 

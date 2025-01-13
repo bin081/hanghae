@@ -16,12 +16,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
-
 @RestController
 @RequestMapping("/api/reservation1")
 public class ReservationTotalController {
 
-    @Autowired
+    private final UserQueueRepository userQueueRepository;
+
+
     private ReservationService reservationService;
     private final PaymentService paymentService;
     private final TokenService tokenService;
@@ -29,12 +30,14 @@ public class ReservationTotalController {
     private final SeatReservationService seatReservationService;
     private final BalanceService balanceService;
 
-    public ReservationTotalController(PaymentService paymentService, TokenService tokenService, QueueService queueService, UserQueueRepository userQueueRepository, SeatReservationService seatReservationService, BalanceService balanceService) {
+    public ReservationTotalController(ReservationService reservationService, PaymentService paymentService, TokenService tokenService, QueueService queueService, UserQueueRepository userQueueRepository, SeatReservationService seatReservationService, BalanceService balanceService) {
+        this.reservationService = reservationService;
         this.paymentService = paymentService;
         this.tokenService = tokenService;
         this.queueService = queueService;
         this.seatReservationService = seatReservationService;
         this.balanceService = balanceService;
+        this.userQueueRepository = userQueueRepository;
     }
 
     /*토큰을 생성함*/

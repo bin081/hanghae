@@ -27,8 +27,8 @@ public class TokenService {
         UserQueue userQueue = new UserQueue();
         String token = UUID.randomUUID().toString();
         int positionInQueue = waitList.size()+1;
-        tokenStorage.put(token, userId);
-        waitList.put(userId, positionInQueue);
+        //tokenStorage.put(token, userId);
+        //waitList.put(userId, positionInQueue);
         log.info("token : ", token , ",  positionInQueue : " , positionInQueue);
         userQueue.setEnteredAt(LocalDateTime.now());
         userQueue.setExpiredAt(LocalDateTime.now().plusMinutes(5)); // Set expiration to 5 minutes
