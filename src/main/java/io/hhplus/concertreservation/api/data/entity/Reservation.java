@@ -18,7 +18,7 @@ public class Reservation {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private Users user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "concert_seat_id", nullable = false)
@@ -38,6 +38,10 @@ public class Reservation {
 
     @Column(name = "status", length = 100)
     private String status;
+
+    private String date;
+    private int seatNumber;
+    private boolean reserved;
 
     // Getters and Setters
 }

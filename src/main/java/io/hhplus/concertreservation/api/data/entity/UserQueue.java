@@ -31,5 +31,7 @@ public class UserQueue {
     @Column(name = "status", length = 100)
     private String status;
 
+    @Column(name = "position", length = 100)
+    private int position;
     // Getters and Setters
 }

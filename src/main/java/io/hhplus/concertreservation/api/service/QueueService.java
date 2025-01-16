@@ -41,7 +41,7 @@ public class QueueService {
     }
 
     // 유저가 대기열에 있는지, 그리고 대기열 검증
-    public boolean isUserEligible(Optional<UserQueue> userQueue) {
+    /*public boolean isUserEligible(Optional<UserQueue> userQueue) {
         int position = queuePosition.size() + 1;
         queuePosition.put(userQueue.get().getToken(), position);
         userQueueMap.put(userQueue.get().getToken(), userQueue.get().getId());
@@ -49,7 +49,17 @@ public class QueueService {
             System.out.println("Queue has expired.");
         }else
             System.out.println("Queue is still valid.");
-            return queuePosition != null && queuePosition.get(position) <= 10; // 예시: 대기열에서 앞 10명만 예약 가능
+            return queuePosition != null && queuePosition.get(position) <= 10;
+    }*/
+
+    public boolean isUserEligible(Optional<UserQueue> userQueue) {
+        if (userQueue.isEmpty() || userQueue.get().getExpiredAt().isBefore(LocalDateTime.now())) {
+            return false; // 만료된 경우
+        }
+
+        String token = userQueue.get().getToken();
+        int position = queuePosition.getOrDefault(token, Integer.MAX_VALUE); // 기본값은 매우 큰 숫자
+        return position <= 10; // 대기열 상위 10명만 예약 가능
     }
 
     public boolean isUserEligibleToken(String token) {
@@ -60,14 +70,14 @@ public class QueueService {
             System.out.println("Queue has expired.");
         }else
             System.out.println("Queue is still valid.");
-        return queuePosition != null && queuePosition.get(position) <= 10; // 예시: 대기열에서 앞 10명만 예약 가능
+        return queuePosition != null && queuePosition.get(position) <= 10;
     }
 
     // 대기열에 유저 추가
     public UserQueue addUserToQueue(String userToken) {
         UserQueue userQueue = new UserQueue();
         userQueue.setToken(userToken);
-        userQueue.setEnteredAt(LocalDateTime.now().plusMinutes(5)); // Set expiration to 5 minutes
+        userQueue.setEnteredAt(LocalDateTime.now().plusMinutes(5));
         userQueue.setStatus("WAITING");
         userQueueRepository.save(userQueue);
         return userQueue;
@@ -99,4 +109,6 @@ public class QueueService {
 
         activeTokens.add(token);
     }
+
+
 }

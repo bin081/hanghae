@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.http.MediaType;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -111,7 +112,7 @@ public class ConcertSeatServiceTest {
         when(userQueueRepository.findByToken(userToken)).thenReturn(Optional.empty());
 
         // when
-        boolean result = seatReservationService.reserveSeat(userToken, date, seatNumber);
+        boolean result = seatReservationService.reserveSeat(userToken, LocalDate.from(LocalDateTime.parse(date)), seatNumber);
 
         // then
         assertFalse(result);

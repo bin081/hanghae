@@ -1,6 +1,6 @@
 package io.hhplus.concertreservation.api.service;
 
-import io.hhplus.concertreservation.api.data.entity.User;
+import io.hhplus.concertreservation.api.data.entity.Users;
 import io.hhplus.concertreservation.api.data.repository.UserRepository;
 import io.hhplus.concertreservation.api.presentation.dto.BalanceResponse;
 import io.hhplus.concertreservation.api.support.exception.UserNotFoundException;
@@ -37,8 +37,8 @@ public class BalanceService {
     }
 
     public BalanceResponse getUserBalance(Long userId) throws UserNotFoundException  {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("User not found"));
+        Users user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("Users not found"));
 
         return new BalanceResponse(user.getId(), user.getBalance(), "USD");
     }

@@ -4,6 +4,7 @@ import io.hhplus.concertreservation.api.data.entity.Payment;
 import io.hhplus.concertreservation.api.data.repository.PaymentRepository;
 import io.hhplus.concertreservation.api.presentation.dto.PaymentRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
@@ -24,7 +25,7 @@ public class PaymentService {
         this.paymentRepository = paymentRepository;
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED)
     public void processPayment(PaymentRequest request) {
         // 1. 대기열 검증
         String token = request.getToken();

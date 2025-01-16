@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -43,7 +46,7 @@ public class SeatReservationServiceTest {
         when(queueService.isUserEligible(Optional.of(userQueue))).thenReturn(true);
 
         // when
-        boolean result = seatReservationService.reserveSeat(userToken, date, seatNumber);
+        boolean result = seatReservationService.reserveSeat(userToken, LocalDate.from(LocalDateTime.parse(date)), seatNumber);
 
         // then
         assertTrue(result);
@@ -65,14 +68,14 @@ public class SeatReservationServiceTest {
         when(queueService.isUserEligible(Optional.of(userQueue))).thenReturn(true);
 
         // Pre-reserve the seat
-        seatReservationService.reserveSeat(userToken, date, seatNumber);
+        seatReservationService.reserveSeat(userToken, LocalDate.from(LocalDateTime.parse(date)), seatNumber);
 
         // Reset mock 호출 기록
         reset(userQueueRepository, queueService);
         when(userQueueRepository.findByToken(userToken)).thenReturn(Optional.of(userQueue));
 
         // when
-        boolean result = seatReservationService.reserveSeat(userToken, date, seatNumber);
+        boolean result = seatReservationService.reserveSeat(userToken, LocalDate.from(LocalDateTime.parse(date)), seatNumber);
 
         // then
         assertFalse(result);
@@ -91,7 +94,7 @@ public class SeatReservationServiceTest {
         when(userQueueRepository.findByToken(userToken)).thenReturn(Optional.empty());
 
         // when
-        boolean result = seatReservationService.reserveSeat(userToken, date, seatNumber);
+        boolean result = seatReservationService.reserveSeat(userToken, LocalDate.from(LocalDateTime.parse(date)), seatNumber);
 
         // then
         assertFalse(result);
@@ -105,7 +108,7 @@ public class SeatReservationServiceTest {
         String key = "2025-01-15-1";
         String userToken = "valid-token";
         int seatNumber = 1;
-        seatReservationService.reserveSeat(userToken, key, seatNumber);
+        seatReservationService.reserveSeat(userToken, LocalDate.from(LocalDateTime.parse(key)), seatNumber);
 
         // when
         seatReservationService.removeReservedSeat(key);

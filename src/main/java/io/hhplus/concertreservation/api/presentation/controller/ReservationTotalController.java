@@ -10,7 +10,6 @@ import io.hhplus.concertreservation.api.service.*;
 import io.hhplus.concertreservation.api.support.exception.ErrorResponse;
 import io.hhplus.concertreservation.api.support.exception.UserNotFoundException;
 import io.hhplus.concertreservation.api.support.util.TokenUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -104,13 +103,13 @@ public class ReservationTotalController {
     @GetMapping("/balance")
     public ResponseEntity<?> getBalance(@RequestHeader("Authorization") String token) {
         try {
-            Long userId = TokenUtil.getUserIdFromToken(token); // JWT로부터 User ID 추출
+            Long userId = TokenUtil.getUserIdFromToken(token); // JWT로부터 Users ID 추출
             BalanceResponse response = balanceService.getUserBalance(userId);
             return ResponseEntity.ok(response);
         } catch (UserNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("User not found"));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("Users not found", HttpStatus.INTERNAL_SERVER_ERROR.value()));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Internal server error"));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR.value()));
         }
     }
 
