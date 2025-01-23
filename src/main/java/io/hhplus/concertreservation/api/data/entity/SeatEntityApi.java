@@ -5,11 +5,12 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
+
 @Getter
 @Setter
 @Table(name = "concert_seat")
-public class Seat {
+@Entity(name = "SeatEntityApi")
+public class SeatEntityApi {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

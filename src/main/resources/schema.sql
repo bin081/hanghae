@@ -45,7 +45,7 @@ CREATE TABLE concert_schedual
 );
 
 
-create table seat
+create table seatEntityConcurrency
 (
     id                  	    BIGINT UNSIGNED AUTO_INCREMENT COMMENT '콘서트좌석id',
     concert_schedual_id			BIGINT UNSIGNED NOT NULL  COMMENT '콘서트스케줄id',

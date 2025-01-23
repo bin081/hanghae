@@ -72,7 +72,7 @@ public class MockController {
     // 좌석 예약 요청 API
     @PostMapping("/reserve")
     public ApiResponse<ReservationResponse> getRegister(@RequestParam Long userId, @RequestParam Integer seatNumber) {
-        ReservationResponse response = new ReservationResponse("2024-01-01", "Seat " + seatNumber);
+        ReservationResponse response = new ReservationResponse("2024-01-01", "SeatEntityConcurrency " + seatNumber);
         return new ApiResponse<ReservationResponse>(response);
     }
 

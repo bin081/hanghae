@@ -1,13 +1,10 @@
 package io.hhplus.concertreservation.api.presentation.controller;
 
-import io.hhplus.concertreservation.api.data.entity.Seat;
 import io.hhplus.concertreservation.api.data.repository.UserQueueRepository;
 import io.hhplus.concertreservation.api.presentation.dto.SeatResponse;
 import io.hhplus.concertreservation.api.service.ReservationService;
 import io.hhplus.concertreservation.api.service.SeatReservationService;
 import io.hhplus.concertreservation.api.service.QueueService;
-import io.hhplus.concertreservation.api.data.repository.SeatRepository;
-import io.hhplus.concertreservation.api.data.repository.ConcertRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,8 +12,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.http.MediaType;
@@ -32,7 +27,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 @ExtendWith(MockitoExtension.class)
-public class ConcertSeatServiceTest {
+public class ConcertSeatServiceTestEntityConcurrencyEntityApi {
 
     @Mock
     private ReservationService reservationService; // reservationService 모킹

@@ -22,7 +22,7 @@ public class Reservation {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "concert_seat_id", nullable = false)
-    private Seat seat;
+    private SeatEntityApi seatEntityApi;
 
     @Column(name = "price", nullable = false)
     private Double price;

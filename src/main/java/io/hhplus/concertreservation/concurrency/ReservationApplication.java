@@ -1,4 +1,4 @@
-package io.hhplus.concertreservation.api;
+package io.hhplus.concertreservation.concurrency;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

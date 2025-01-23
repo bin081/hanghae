@@ -30,7 +30,7 @@ public class ReservationService {
     private ConcertRepository concertRepository;
 
     @Autowired
-    private SeatRepository seatRepository;
+    private apiSeatRepository apiSeatRepository;
 
     @Autowired
     private ReservationRepository reservationRepository;
@@ -66,32 +66,32 @@ public class ReservationService {
 
 
     public List<SeatResponse> getAvailableSeats(String date) {
-        List<Seat> seats = seatRepository.findByConcertScheduleIdAndStatus(date, "AVAILABLE");
-        return seats.stream()
+        List<SeatEntityApi> seatEntityApis = apiSeatRepository.findByConcertScheduleIdAndStatus(date, "AVAILABLE");
+        return seatEntityApis.stream()
                 .map(seat -> new SeatResponse(seat.getSeatNumber(), seat.getPrice(), seat.getStatus()))
                 .collect(Collectors.toList());
     }
 
     @Transactional
     public boolean reserveSeat(Long userId, Long seatId, Double amount) {
-        Optional<Seat> seatOptional = seatRepository.findById(seatId);
+        Optional<SeatEntityApi> seatOptional = apiSeatRepository.findById(seatId);
         if (seatOptional.isEmpty()) {
-            return false; // Seat not found
+            return false; // SeatEntityConcurrency not found
         }
 
-        Seat seat = seatOptional.get();
-        if (!seat.getStatus().equals("AVAILABLE")) {
-            return false; // Seat not available
+        SeatEntityApi seatEntityApi = seatOptional.get();
+        if (!seatEntityApi.getStatus().equals("AVAILABLE")) {
+            return false; // SeatEntityConcurrency not available
         }
 
-        // Lock seat for 5 minutes
-        seat.setStatus("TEMPORARY");
-        seatRepository.save(seat);
+        // Lock seatEntityApi for 5 minutes
+        seatEntityApi.setStatus("TEMPORARY");
+        apiSeatRepository.save(seatEntityApi);
 
         // Create reservation (without payment)
         Reservation reservation = new Reservation();
         reservation.setUser(userRepository.getById(userId));
-        reservation.setSeat(seat);
+        reservation.setSeatEntityApi(seatEntityApi);
         reservation.setPrice(amount);
         reservation.setCreateDate(LocalDateTime.now());
         reservation.setUpdateDate(LocalDateTime.now());
@@ -121,10 +121,10 @@ public class ReservationService {
         reservation.setUpdateDate(LocalDateTime.now());
         reservationRepository.save(reservation);
 
-        // Update seat status to "SOLD"
-        Seat seat = reservation.getSeat();
-        seat.setStatus("SOLD");
-        seatRepository.save(seat);
+        // Update seatEntityApi status to "SOLD"
+        SeatEntityApi seatEntityApi = reservation.getSeatEntityApi();
+        seatEntityApi.setStatus("SOLD");
+        apiSeatRepository.save(seatEntityApi);
 
         return true;
     }

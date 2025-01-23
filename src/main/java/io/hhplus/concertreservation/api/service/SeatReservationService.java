@@ -1,11 +1,10 @@
 package io.hhplus.concertreservation.api.service;
 
-import io.hhplus.concertreservation.api.data.entity.Concert;
 import io.hhplus.concertreservation.api.data.entity.Reservation;
 
-import io.hhplus.concertreservation.api.data.entity.Seat;
+import io.hhplus.concertreservation.api.data.entity.SeatEntityApi;
 import io.hhplus.concertreservation.api.data.repository.ReservationRepository;
-import io.hhplus.concertreservation.api.data.repository.SeatRepository;
+import io.hhplus.concertreservation.api.data.repository.apiSeatRepository;
 import io.hhplus.concertreservation.api.data.repository.UserQueueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Lock;
@@ -14,8 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.LockModeType;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.*;
 
@@ -29,7 +26,7 @@ public class SeatReservationService {
     @Autowired
     private final UserQueueRepository userQueueRepository;
     @Autowired
-    private SeatRepository seatRepository;
+    private apiSeatRepository apiSeatRepository;
     private final ConcurrentMap<String, String> reservedSeats = new ConcurrentHashMap<>();
 
     @Autowired
@@ -45,37 +42,37 @@ public class SeatReservationService {
     public boolean reserveSeat(String userToken, LocalDate date, long seatNumber) {
 
         String key = date + "-" + seatNumber;
-        System.out.println("Requested seat number: " + seatNumber);
+        System.out.println("Requested seatEntityApi number: " + seatNumber);
 
-        Seat seat = seatRepository.findBySeatNumber(seatNumber).orElseThrow(() -> new IllegalArgumentException("Seat not found"));
+        SeatEntityApi seatEntityApi = apiSeatRepository.findBySeatNumber(seatNumber).orElseThrow(() -> new IllegalArgumentException("SeatEntityConcurrency not found"));
 
         // "2025-01-16" 날짜 문자열을 LocalDateTime으로 변환
         String formattedDate = date.toString(); // "2025-01-16"
-        System.out.println("Searching for reservation on date: " + formattedDate + " for seat: " + seatNumber);
+        System.out.println("Searching for reservation on date: " + formattedDate + " for seatEntityApi: " + seatNumber);
 
         // DB에서 예약 상태 확인 및 갱신
-        Optional<Reservation> reservation1 = reservationRepository.findByDateAndSeat(formattedDate, seat);
+        Optional<Reservation> reservation1 = reservationRepository.findByDateAndSeat(formattedDate, seatEntityApi);
 
         if (reservation1.isPresent()) {
             if (reservation1.get().isReserved()) {
-                System.out.println("Reservation failed: Seat already reserved.");
+                System.out.println("Reservation failed: SeatEntityConcurrency already reserved.");
                 return false;
             } else {
                 // 좌석 예약 상태 갱신
                 reservation1.get().setReserved(true);
                 reservationRepository.save(reservation1.get());
-                System.out.println("Seat reserved successfully for user: " + userToken);
+                System.out.println("SeatEntityConcurrency reserved successfully for user: " + userToken);
             }
         } else {
-            Optional<Seat> seatOptional = seatRepository.findById((long) seatNumber);
-            Seat seat2 = seatOptional.get();
+            Optional<SeatEntityApi> seatOptional = apiSeatRepository.findById((long) seatNumber);
+            SeatEntityApi seatEntityApi2 = seatOptional.get();
             // 좌석이 존재하지 않으면 새로운 예약 생성
             Reservation newReservation = new Reservation();
             newReservation.setDate(String.valueOf(date));
-            newReservation.setSeat(seat2);
+            newReservation.setSeatEntityApi(seatEntityApi2);
             newReservation.setReserved(true);
             reservationRepository.save(newReservation);
-            System.out.println("Seat reserved successfully for user: " + userToken);
+            System.out.println("SeatEntityConcurrency reserved successfully for user: " + userToken);
         }
 
         // 예약 만료 스케줄 설정 (5분 후 해제)
@@ -85,12 +82,12 @@ public class SeatReservationService {
 
     @Transactional
     public void releaseSeat(LocalDate date, long seatNumber) {
-        Seat seat = seatRepository.findById(seatNumber).orElseThrow(() -> new IllegalArgumentException("Seat not found"));
-        Optional<Reservation> reservation = reservationRepository.findByDateAndSeat(String.valueOf(date), seat);
+        SeatEntityApi seatEntityApi = apiSeatRepository.findById(seatNumber).orElseThrow(() -> new IllegalArgumentException("SeatEntityConcurrency not found"));
+        Optional<Reservation> reservation = reservationRepository.findByDateAndSeat(String.valueOf(date), seatEntityApi);
         if (reservation.isPresent() && reservation.get().isReserved()) {
             reservation.get().setReserved(false);
             reservationRepository.save(reservation.get());
-            System.out.println("Seat released for date: " + date + ", seat number: " + seatNumber);
+            System.out.println("SeatEntityConcurrency released for date: " + date + ", seatEntityApi number: " + seatNumber);
         }
     }
 
@@ -133,9 +130,9 @@ public class SeatReservationService {
 
     public void removeReservedSeat(String key) {
         if (reservedSeats.remove(key) != null) {
-            System.out.println("Seat " + key + " has been released.");
+            System.out.println("SeatEntityConcurrency " + key + " has been released.");
         } else {
-            System.out.println("Seat " + key + " was not reserved.");
+            System.out.println("SeatEntityConcurrency " + key + " was not reserved.");
         }
     }
 }
