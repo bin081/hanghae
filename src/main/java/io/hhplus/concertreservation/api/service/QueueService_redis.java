@@ -22,7 +22,7 @@ public class QueueService_redis {
     public QueueService_redis(RedisTemplate<String, String> redisTemplate) {
         this.redisTemplate = redisTemplate;
         this.zSetOperations = redisTemplate.opsForZSet();
-    }
+    }  
 
     /**
      * 대기열에 유저 추가 (Redis Sorted Set 사용)
