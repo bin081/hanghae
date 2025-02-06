@@ -45,6 +45,8 @@ dependencies {
 
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
 
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.apache.commons:commons-pool2' // Redis Connection Pool 관리
 
 }
 

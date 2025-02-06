@@ -1,16 +1,12 @@
 package io.hhplus.concertreservation.api.support.exception.test;
 
-import io.hhplus.concertreservation.api.data.repository.SeatRepository;
-import io.hhplus.concertreservation.api.service.PaymentService;
-import io.hhplus.concertreservation.api.service.QueueService;
-import io.hhplus.concertreservation.api.support.exception.TokenValidationException;
 /*
 public class ExceptionTest {
-    private final SeatRepository seatRepository;
+    private final concurrencySeatRepository seatRepository;
     private final QueueService userTokenService;
     private final PaymentService userBalanceService;
 
-    public ExceptionTest(SeatRepository seatRepository, QueueService userTokenService, PaymentService userBalanceService) {
+    public ExceptionTest(concurrencySeatRepository seatRepository, QueueService userTokenService, PaymentService userBalanceService) {
         this.seatRepository = seatRepository;
         this.userTokenService = userTokenService;
         this.userBalanceService = userBalanceService;

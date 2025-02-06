@@ -18,7 +18,7 @@ import java.util.concurrent.ConcurrentMap;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class SeatReservationServiceTest {
+public class SeatEntityApiEntityConcurrencyReservationServiceTest {
     @Mock
     private UserQueueRepository userQueueRepository;
 
