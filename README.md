@@ -41,3 +41,80 @@
 - 오류율(Error Rate): 요청 대비 실패율 분석
 - CPU 및 메모리 사용률: Docker 컨테이너 리소스 사용률 확인
 - DB 부하(Query Performance): 주요 SQL 쿼리의 실행 시간 분석
+
+------------------------------------------------------------------------------------------------------------------------------------
+# 부하테스트 스크립트
+
+1️⃣ JMeter 설치
+JMeter 공식 사이트에서 다운로드 후 설치.
+설치 후 bin/jmeter.bat (Windows) 또는 bin/jmeter (Mac/Linux) 실행.
+
+2️⃣ 테스트 계획 구성
+
+🔹 유저 대기열 토큰 발급 테스트
+Thread Group 추가
+
+Number of Threads (Users): 1000 (1000명의 사용자)
+Ramp-Up Period: 60 (1분 동안 점진적으로 증가)
+Loop Count: 1 (한 번만 실행)
+HTTP Request 추가
+
+Server Name: localhost
+Port: 8080
+Method: POST
+Path: /api/queue/token
+Body Data (JSON 입력)
+json
+{ "userId": "${__UUID()}" }
+Content-Type: application/json
+Assertions 추가
+
+Response Assertion 추가 → Text Response에서 "status": "success" 포함 확인
+
+🔹 좌석 예약 요청 테스트
+새로운 Thread Group 생성
+
+Number of Threads (Users): 500
+Ramp-Up Period: 10 (10초 동안 점진적 증가)
+HTTP Request 추가
+
+Method: POST
+Path: /api/reserve
+Body Data
+json
+{
+  "userId": "${__UUID()}",
+  "seatNumber": "${__Random(1,50)}",
+  "date": "2025-02-25"
+}
+
+🔹 결제 요청 테스트
+새로운 Thread Group 생성
+
+Number of Threads (Users): 200
+Ramp-Up Period: 5
+Loop Count: 1
+HTTP Request 추가
+
+Method: POST
+Path: /api/payment
+Body Data
+{
+  "userId": "${__UUID()}",
+  "seatNumber": "${__Random(1,50)}",
+  "amount": 50000
+}
+
+3️⃣ JMeter 실행
+GUI에서 실행
+JMeter 실행 (bin/jmeter)
+위 설정대로 구성 후 Start 버튼 클릭
+CLI에서 실행
+.jmx 파일 저장 (load_test.jmx)
+터미널에서 실행:
+sh
+jmeter -n -t load_test.jmx -l result.jtl -e -o report
+-n: GUI 없이 실행
+-t: 실행할 .jmx 파일 지정
+-l: 결과 로그 저장 (.jtl)
+-e -o report: HTML 리포트 생성
