@@ -132,6 +132,7 @@ jmeter -n -t load_test.jmx -l result.jtl -e -o report
 다수의 사용자가 같은 좌석을 요청하면서 DB의 락 경합 발생
 예약 시 Pessimistic Lock 사용으로 인해 트랜잭션 대기 시간 증가
 Redis 캐시가 없는 상태에서 예약 가능 좌석 조회 시 DB 부하 증가
+
 ✅ 개선 방안:
 좌석 예약 상태 캐싱 적용
 Redis를 활용해 예약 가능 좌석을 캐싱하여 DB 부하 감소
@@ -142,6 +143,7 @@ SETNX 또는 Sorted Set 기반 대기열 방식 활용
 🔍 원인:
 결제 요청 시 DB 트랜잭션 범위가 큼
 좌석 상태 업데이트와 결제 내역 저장이 한 트랜잭션에서 처리됨
+
 ✅ 개선 방안:
 비동기 결제 처리 적용
 
@@ -154,6 +156,7 @@ DB 테이블 인덱스 최적화
 🔍 원인:
 CPU 사용률 80% 이상 지속
 GC(Garbage Collection) 지연 발생
+
 ✅ 개선 방안:
 Docker 리소스 스케일링
 
@@ -176,6 +179,7 @@ Auto Scaling 적용 고려
 
 대기열 시스템이 정상적으로 동작하지 않음
 좌석 예약 시 DB 부하 증가
+
 🛠 대응 방안:
 
 Redis Sentinel 구성으로 장애 감지 및 자동 복구
@@ -186,6 +190,7 @@ Redis 장애 시 DB 조회로 전환 (성능 저하 고려)
 
 좌석 예약 및 결제 요청 실패
 API 응답 시간 초과
+
 🛠 대응 방안:
 
 DB Connection Pool 적용 및 Failover 설정
@@ -195,6 +200,7 @@ Retry 로직 적용 (예: Spring Retry)
 
 일부 사용자가 서비스 이용 불가
 서버 응답 시간 증가
+
 🛠 대응 방안:
 
 Auto Scaling 적용
